@@ -1,10 +1,10 @@
 class Booking:
     def __init__(self, booking_id, status, created_on, description):
-        self._booking_id = booking_id
-        self._status = status
-        self._created_on = created_on
-        self._description = description
-        self._equipment = Equipment
+        self.__booking_id = booking_id
+        self.__status = status
+        self.__created_on = created_on
+        self.__description = description
+        self.__equipment = Equipment
 
     def cancel(self):
         pass
@@ -24,7 +24,7 @@ class Booking:
 
 class BookingHistory:
     def __init__(self):
-        self.booking = []
+        self.__booking = []
 
     def search_booking_by_id(self):
         pass
@@ -32,9 +32,9 @@ class BookingHistory:
 
 class Equipment:
     def __init__(self, name, price, item):
-        self._name = name
-        self._price = price
-        self._item = item
+        self.__name = name
+        self.__price = price
+        self.__item = item
 
 
 class Vest(Equipment):
