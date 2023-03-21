@@ -87,10 +87,3 @@ class Guest:
 
   def check_login(self):
     pass
-
-
-admin = Admin("admin", "admin@gmail.com", "0123456789", "Hanoi", "01/01/2000", "admin2", "9154064564")
-
-customer = Customer("customer", "customer@gmail.com", "0123456789", "Hanoi", "01/01/2000", "customer2", "9154064564")
-
-frontdesk = FrontDesk("frontdesk", "frontdesk@gmail.com", "0123456789", "Hanoi", "01/01/2000", "frontdesk2", "9154064564")
