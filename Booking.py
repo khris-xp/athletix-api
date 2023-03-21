@@ -15,7 +15,7 @@ class Booking:
     def set_equipment(self):
         pass
 
-    def get_booking_card(self):
+    def get_booking_detail(self):
         pass
 
     def add_booking(self, booking_history):
