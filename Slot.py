@@ -5,6 +5,7 @@ class Slot:
     self.__status = True
 
   def get_start_time(self):
+
     return self.__start_time
 
   def get_end_time(self):
@@ -13,7 +14,12 @@ class Slot:
   def get_status(self):
     return self.__status
 
-
+  def set_book(self):
+    self.__status = False
+    
+  def cancel(self):
+    self.__status = True
+    
 class SlotDate(Slot):
   def __init__(self, start_time, end_time, date):
     super().__init__(start_time, end_time)

@@ -17,6 +17,11 @@ class Person:
   def search_booking_by_id(self, id):
     pass
 
+  def get_details(self):
+    return {
+      "fullname": self.__fullname,
+      "email": self.__email,
+    }
 
 class FrontDesk(Person):
   def __init__(self, fullname, email, phone_number, address, birth_date, emergency_contact_fullname, emergency_contact_phone_number):
