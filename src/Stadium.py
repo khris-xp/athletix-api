@@ -1,4 +1,4 @@
-from Category import category
+from src.Category import category
 
 
 class Stadium:
@@ -26,7 +26,6 @@ class Stadium:
         if slot['start_time'] == start_time and slot['end_time'] == end_time:
           return slot
           
-    return None
-
+    return "Not Found Slot"
 
 stadium = Stadium(category)
