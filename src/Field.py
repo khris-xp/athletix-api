@@ -1,4 +1,4 @@
-from Slot import slot1, slot2, slot3
+from src.Slot import slot1, slot2, slot3
 
 
 class Field:

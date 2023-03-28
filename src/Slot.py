@@ -20,6 +20,13 @@ class Slot:
   def cancel(self):
     self.__status = True
     
+  def get_details(self):
+    return {
+        "start_time": self.get_start_time(),
+        "end_time": self.get_end_time(),
+        "status": self.get_status()
+    }
+    
 class SlotDate(Slot):
   def __init__(self, start_time, end_time, date):
     super().__init__(start_time, end_time)

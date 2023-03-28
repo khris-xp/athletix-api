@@ -1,4 +1,4 @@
-from Field import football1, football2 , basketball1
+from src.Field import football1, football2 , basketball1
 
 
 class Category:
@@ -23,4 +23,3 @@ category = Category()
 category.add_category(football1, "football")
 category.add_category(football2, "football")
 category.add_category(basketball1, "basketball")
-

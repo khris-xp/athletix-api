@@ -1,7 +1,7 @@
-from Stadium import stadium
+from src.Stadium import stadium
 import uuid
 from datetime import datetime
-from Payment import Payment
+from src.Payment import Payment
 
 class Booking:
     def __init__(self,description,slot, customer,equipment,status="Pending", created_on=datetime.now(), booking_id=uuid.uuid1()):
@@ -13,9 +13,7 @@ class Booking:
         self.__customer = customer
         self.__slot = slot
         
-    def create_payment(self,type):
-        payment = Payment(type)
-        payment.create_payment()
+ 
     
     def approve(self):
         self.__status = 'Approved'
@@ -41,7 +39,7 @@ class Booking:
             "created_on": self.__created_on,
             "description": self.__description,
             "equipment": self.__equipment,
-            "customer": self.__customer.get_details(),
+            "customer": self.__customer,
         }
 
     
@@ -56,10 +54,21 @@ class BookingHistory:
     def create_booking(self,description, slot, customer,equipment):
         book = Booking(description, slot, customer,equipment)
         self.__booking.append(book)
-        
+        return book.get_booking_detail()
+    
     def show_booking_history(self):
+        to_return = []
         for book in self.__booking:
             print(book.get_booking_detail())
+            to_return.append(book)
+        return to_return
+    
+    def show_booking_by_id(self, booking_id):
+        for book in self.__booking:
+            if book.get_booking_id() == booking_id:
+                return book.get_booking_detail()
+        return "Not Found Booking"
+        
 
 class Equipment:
     def __init__(self, name, price):
