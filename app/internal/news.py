@@ -13,7 +13,7 @@ class News:
     self.__author = author
     self.__draft = draft
 
-  def to_dict(self):
+  def to_dict(self) -> dict:
     return {
         key.replace("_News__", ""): value
         for key, value in self.__dict__.items()
