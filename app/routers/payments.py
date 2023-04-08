@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/payment", tags=["payment"], responses={
+router = APIRouter(prefix="/payments", tags=["payments"], responses={
                    404: {"description": "Not found"}})
 
 

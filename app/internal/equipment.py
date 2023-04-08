@@ -17,12 +17,6 @@ class Equipment:
   def get_id(self) -> str:
     return self.__id
 
-  def get_quantity(self) -> int:
-    return self.__quantity
-
-  def get_price(self) -> float:
-    return self.__price
-
   def get_name(self) -> str:
     return self.__name
 
@@ -34,13 +28,3 @@ class Equipment:
 
   def set_name(self, name: str) -> None:
     self.__name = name
-
-
-class FootBall(Equipment):
-  def __init__(self, name: str, price: float, quantity: int) -> None:
-    super().__init__(name, price, quantity)
-
-
-class Vest(Equipment):
-  def __init__(self, name: str, price: float, quantity: int) -> None:
-    super().__init__(name, price, quantity)

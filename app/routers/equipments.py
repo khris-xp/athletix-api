@@ -1,7 +1,8 @@
 from fastapi import APIRouter, status, HTTPException
 from ..database import stadium
 from ..models.equipment import EquipmentModel
-from ..internal.equipment import FootBall, Vest
+from ..internal.football import FootBall
+from ..internal.vest import Vest
 
 router = APIRouter(prefix="/equipments",
                    tags=["equipments"], responses={404: {"description": "Not found"}})
