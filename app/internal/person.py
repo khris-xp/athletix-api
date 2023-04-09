@@ -1,8 +1,10 @@
 from datetime import datetime
+import uuid
 
 
 class Person:
   def __init__(self, fullname: str, email: str, phone_number: str, address: str, birth_date: datetime, emergency_contact_fullname: str, emergency_contact_phone_number: str, account) -> None:
+    self.__id = str(uuid.uuid4())
     self.__fullname = fullname
     self.__email = email
     self.__phone_number = phone_number
@@ -11,6 +13,15 @@ class Person:
     self.__emergency_contact_fullname = emergency_contact_fullname
     self.__emergency_contact_phone_number = emergency_contact_phone_number
     self.__account = account
+
+  def to_dict(self) -> dict:
+    return {
+        key.replace('_Person__', ''): value
+        for key, value in self.__dict__.items()
+    }
+
+  def get_id(self) -> str:
+    return self.__id
 
   def get_fullname(self) -> str:
     return self.__fullname
@@ -35,6 +46,9 @@ class Person:
 
   def get_emergency_contact_phone_number(self) -> str:
     return self.__emergency_contact_phone_number
+
+  def get_account(self):
+    return self.__account
 
   def set_fullname(self, fullname: str) -> None:
     self.__fullname = fullname

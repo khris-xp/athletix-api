@@ -17,9 +17,7 @@ async def get_equipments():
 async def add_football_equipment(body: EquipmentModel):
   football = FootBall(**body.dict())
 
-  football_exist = stadium.get_equipment_by_name(body.name)
-
-  if football_exist is not None:
+  if stadium.get_equipment_by_name(body.name) is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="Football already existed")
 
@@ -31,9 +29,7 @@ async def add_football_equipment(body: EquipmentModel):
 async def add_vest_equipment(body: EquipmentModel):
   vest = Vest(**body.dict())
 
-  vest_exist = stadium.get_equipment_by_name(body.name)
-
-  if vest_exist is not None:
+  if stadium.get_equipment_by_name(body.name) is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="Vest already existed")
 

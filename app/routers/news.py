@@ -24,10 +24,8 @@ async def get_news_by_id(id: str):
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_news(body: NewsModel):
   news = News(**body.dict())
-
-  news_exist = stadium.get_news_by_title(body.title)
-
-  if news_exist is not None:
+  
+  if stadium.get_news_by_title(body.title) is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="News already existed")
 
