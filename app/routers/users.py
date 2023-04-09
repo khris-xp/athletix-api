@@ -1,6 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from ..dependencies import get_current_user
-from fastapi import Depends
 from ..models.user import UserModel
 from ..database import stadium
 

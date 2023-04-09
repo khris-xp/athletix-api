@@ -1,5 +1,5 @@
 class Account:
-  def __init__(self, password: str, role="user") -> None:
+  def __init__(self, password: str, role="customer") -> None:
     self.__password = password
     self.__role = role
 

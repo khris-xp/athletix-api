@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from ..database import stadium
 from ..internal.news import News
 from ..models.news import NewsModel
+from ..dependencies import get_current_user
 
 router = APIRouter(
     prefix="/news", tags=["news"], responses={404: {"description": "Not found"}})
@@ -22,7 +23,7 @@ async def get_news_by_id(id: str):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_news(body: NewsModel):
+async def create_news(body: NewsModel, current_user = Depends(get_current_user)):
   news = News(**body.dict())
   
   if stadium.get_news_by_title(body.title) is not None:
@@ -34,7 +35,7 @@ async def create_news(body: NewsModel):
 
 
 @router.patch("/{id}")
-async def update_news(id: str, body: NewsModel):
+async def update_news(id: str, body: NewsModel, current_user = Depends(get_current_user)):
   updated_news = stadium.update_news(id, body.dict())
 
   if updated_news is None:
