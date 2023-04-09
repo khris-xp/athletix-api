@@ -118,3 +118,12 @@ class Stadium:
         user_dict['account'] = account_dict
         return user_dict
     return None
+  
+  def get_user_by_id(self, id:str) -> dict | None:
+    for user in self.__users:
+      if user.get_id() == id:
+        user_dict = user.to_dict()
+        account_dict = user.get_account().to_dict()
+        user_dict['account'] = account_dict
+        return user_dict
+    return None

@@ -1,7 +1,7 @@
 class Account:
-  def __init__(self, password: str) -> None:
+  def __init__(self, password: str, role="user") -> None:
     self.__password = password
-    self.__role = "user"
+    self.__role = role
 
   def to_dict(self) -> dict:
     return {

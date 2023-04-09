@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import JSONResponse
 from ..internal.customer import Customer
 from ..internal.account import Account
 from ..database import stadium
 from ..models.auth import RegisterModel, LoginModel
-from ..utils.password import get_password_hash, verify_password
-from ..utils.jwt import create_access_token
+from ..dependencies import get_password_hash, create_access_token, authenticate_user
 
 router = APIRouter(prefix='/auth', tags=['auth'], responses={
                    404: {'description': 'Not found'}})
@@ -31,23 +31,25 @@ async def register(body: RegisterModel):
 
   new_person = stadium.add_user(person)
 
-  return {
-      "access_token": create_access_token(data={"sub": new_person['id']})
-  }
+  return JSONResponse(
+      status_code=status.HTTP_200_OK,
+      content={"message": "Register successfully"},
+      headers={
+          "Authorization": create_access_token(data={"sub": new_person['id'], "role": new_person['account']['role']})
+      })
 
 
 @router.post('/login')
 async def login(body: LoginModel):
-  user = stadium.get_user_by_email(body.email)
+  user = authenticate_user(**body.dict())
 
   if user is None:
     raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+        status_code=status.HTTP_401_UNAUTHORIZED, detail='Unauthorized')
 
-  if not verify_password(body.password, user['account']['password']):
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                        detail='Password is incorrect')
-    
-  return {
-      "access_token": create_access_token(data={"sub": user['id']})
-  }
+  return JSONResponse(
+      status_code=status.HTTP_200_OK,
+      content={"message": "Login successfully"},
+      headers={
+          "Authorization": create_access_token(data={"sub": user['id'], "role": user['account']['role']})
+      })
