@@ -10,7 +10,3 @@ router = APIRouter(
 @router.get("/profile", response_model=UserModel)
 async def get_profile(current_user = Depends(get_current_user)):
   return current_user
-
-@router.get("/")
-async def get_users():
-  return stadium.get_users()

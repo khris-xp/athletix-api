@@ -3,6 +3,7 @@ class Stadium:
     self.__news = []
     self.__equipments = []
     self.__users = []
+    self.__fields = []
 
   def add_news(self, news: dict) -> dict:
     self.__news.append(news)
