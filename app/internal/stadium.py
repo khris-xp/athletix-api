@@ -13,75 +13,39 @@ class Stadium:
     return [news for news in self.__news_collection]
 
   def get_news_by_id(self, id: str) -> dict | None:
-    for news in self.__news_collection:
-      if news.get_id() == id:
-        return news
-    return None
+    return next((news for news in self.__news_collection if news.get_id() == id), None)
 
   def get_news_by_title(self, title: str) -> dict | None:
-    for news in self.__news_collection:
-      if news.get_title() == title:
-        return news
-    return None
+    return next((news for news in self.__news_collection if news.get_title() == title), None)
 
   def update_news(self, id: str, body: dict) -> dict | None:
-    for news in self.__news_collection:
-      if news.get_id() == id:
-        for key in body:
-          if hasattr(news, f"set_{key}"):
-            getattr(news, f"set_{key}")(body[key])
-        news.set_updated_at()
-        return news
-    return None
+    return next((news.set_updated_at() or news for news in self.__news_collection if news.get_id() == id and all(hasattr(news, f"set_{key}") and getattr(news, f"set_{key}")(value) or True for key, value in body.items())), None)
 
   def delete_news(self, id: str) -> str | None:
-    for index, news in enumerate(self.__news_collection):
-      if news.get_id() == id:
-        del self.__news_collection[index]
-        return "Delete news successfully"
-    return None
+    return next((self.__news_collection.pop(index) or "Delete news successfully" for index, news in enumerate(self.__news_collection) if news.get_id() == id), None)
 
   def add_equipment(self, equipment: dict) -> dict:
     self.__equipments_collection.append(equipment)
-    return equipment.to_dict()
+    return equipment
 
   def get_equipments(self) -> list[dict]:
-    return [equipment.to_dict() for equipment in self.__equipments_collection]
+    return [equipment for equipment in self.__equipments_collection]
 
   def get_equipment_by_id(self, id: str) -> dict | None:
-    for equipment in self.__equipments_collection:
-      if equipment.get_id() == id:
-        return equipment.to_dict()
-    return None
+    return next((equipment for equipment in self.__equipments_collection if equipment.get_id() == id), None)
 
   def get_equipment_by_name(self, name: str) -> dict | None:
-    for equipment in self.__equipments_collection:
-      if equipment.get_name() == name:
-        return equipment.to_dict()
-    return None
+    return next((equipment for equipment in self.__equipments_collection if equipment.get_name() == name), None)
 
   def update_equipment(self, id: str, body: dict) -> dict | None:
-    for equipment in self.__equipments_collection:
-      if equipment.get_id() == id:
-        equipment.set_name(body["name"])
-        equipment.set_price(body["price"])
-        equipment.set_quantity(body["quantity"])
-        return equipment.to_dict()
-    return None
+    return next((equipment for equipment in self.__equipments_collection if equipment.get_id() == id and all(hasattr(equipment, f"set_{key}") and getattr(equipment, f"set_{key}")(value) or True for key, value in body.items())), None)
 
   def delete_equipment(self, id: str) -> str | None:
-    for equipment in self.__equipments_collection:
-      if equipment.get_id() == id:
-        self.__equipments_collection.remove(equipment)
-        return "Delete equipment successfully"
-    return None
+    return next((self.__equipments_collection.pop(index) or "Delete equipment successfully" for index, equipment in enumerate(self.__equipments_collection) if equipment.get_id() == id), None)
 
   def add_user(self, user: dict) -> dict:
     self.__users_collection.append(user)
-    user_dict = user.to_dict()
-    account_dict = user.get_account().to_dict()
-    user_dict['account'] = account_dict
-    return user_dict
+    return user
 
   def get_users(self) -> list[dict]:
     users_list = []

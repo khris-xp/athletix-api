@@ -13,30 +13,6 @@ async def get_equipments():
   return stadium.get_equipments()
 
 
-@router.post("/football", status_code=status.HTTP_201_CREATED)
-async def add_football_equipment(body: EquipmentModel):
-  football = FootBall(**body.dict())
-
-  if stadium.get_equipment_by_name(body.name) is not None:
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Football already existed")
-
-  new_football = stadium.add_equipment(football)
-  return new_football
-
-
-@router.post("/vest", status_code=status.HTTP_201_CREATED)
-async def add_vest_equipment(body: EquipmentModel):
-  vest = Vest(**body.dict())
-
-  if stadium.get_equipment_by_name(body.name) is not None:
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Vest already existed")
-
-  new_vest = stadium.add_equipment(vest)
-  return new_vest
-
-
 @router.get("/{equipment_id}")
 async def get_equipment(equipment_id: str):
   equipment = stadium.get_equipment_by_id(equipment_id)
@@ -46,6 +22,34 @@ async def get_equipment(equipment_id: str):
                         detail="Equipment not found")
 
   return equipment
+
+
+@router.post("/football", status_code=status.HTTP_201_CREATED)
+async def add_football_equipment(body: EquipmentModel):
+  equipmentExist = stadium.get_equipment_by_name(body.name)
+
+  if equipmentExist is not None:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Football already existed")
+
+  football = FootBall(**body.dict())
+
+  new_football = stadium.add_equipment(football)
+  return new_football
+
+
+@router.post("/vest", status_code=status.HTTP_201_CREATED)
+async def add_vest_equipment(body: EquipmentModel):
+  vestExist = stadium.get_equipment_by_name(body.name)
+
+  if vestExist is not None:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Vest already existed")
+
+  vest = Vest(**body.dict())
+
+  new_vest = stadium.add_equipment(vest)
+  return new_vest
 
 
 @router.patch("/{equipment_id}")

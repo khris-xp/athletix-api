@@ -8,12 +8,6 @@ class Equipment:
     self.__price = price
     self.__quantity = quantity
 
-  def to_dict(self) -> dict:
-    return {
-        key.replace("_Equipment__", ""): value
-        for key, value in self.__dict__.items()
-    }
-
   def get_id(self) -> str:
     return self.__id
 
