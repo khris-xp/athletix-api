@@ -1,14 +1,23 @@
 from fastapi import APIRouter
+from ..models.field import FieldModel
+from ..database import stadium
+from ..internal.field import Field
+from ..internal.slot_date import SlotDate
 
 router = APIRouter(
     prefix="/fields", tags=["fields"], responses={404: {"description": "Not found"}})
 
 
-@router.get("/search")
-async def search_field():
-  return {"message": "Search for available fields"}
+@router.get("/")
+async def get_fields():
+  return stadium.get_fields()
 
 
-@router.get("/slot")
-async def get_slot():
-  return {"message": "Get slot"}
+@router.post("/")
+async def create_field(body: FieldModel):
+  field = Field(body.name, body.description,
+                body.price_by_slot, body.category, body.type)
+  slots = [SlotDate(**slot.dict()) for slot in body.slot]
+  field.add_slot(slots)
+  stadium.add_field(field)
+  return field

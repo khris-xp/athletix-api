@@ -1,10 +1,16 @@
 from pydantic import BaseSettings
+from functools import lru_cache
 
 
 class Settings(BaseSettings):
-  jwt_secret_key: str = "secret"
-  algorithm: str = "HS256"
-  access_token_expire_minutes: int = 1440
+  jwt_secret_key: str 
+  algorithm: str 
+  access_token_expire_minutes: int
+
+  class Config:
+    env_file = ".env"
 
 
-settings = Settings()
+@lru_cache()
+def get_settings():
+  return Settings()
