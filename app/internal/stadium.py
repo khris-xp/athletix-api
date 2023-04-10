@@ -101,7 +101,7 @@ class Stadium:
         user_dict['account'] = account_dict
         return user_dict
     return None
-  
+
   def get_user_by_fullname(self, fullname: str) -> dict | None:
     for user in self.__users:
       if user.get_fullname() == fullname:
@@ -110,7 +110,7 @@ class Stadium:
         user_dict['account'] = account_dict
         return user_dict
     return None
-  
+
   def get_user_by_phone_number(self, phone_number: str) -> dict | None:
     for user in self.__users:
       if user.get_phone_number() == phone_number:
@@ -119,12 +119,31 @@ class Stadium:
         user_dict['account'] = account_dict
         return user_dict
     return None
-  
-  def get_user_by_id(self, id:str) -> dict | None:
+
+  def get_user_by_id(self, id: str) -> dict | None:
     for user in self.__users:
       if user.get_id() == id:
         user_dict = user.to_dict()
         account_dict = user.get_account().to_dict()
         user_dict['account'] = account_dict
         return user_dict
+    return None
+
+  def add_field(self, field: dict) -> dict:
+    self.__fields.append(field)
+    return field
+
+  def get_fields(self) -> list[dict]:
+    return [field for field in self.__fields]
+
+  def get_field_by_id(self, id: str) -> dict | None:
+    for field in self.__fields:
+      if field.get_id() == id:
+        return field
+    return None
+
+  def get_field_by_name(self, name: str) -> dict | None:
+    for field in self.__fields:
+      if field.get_name() == name:
+        return field
     return None
