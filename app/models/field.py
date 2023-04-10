@@ -8,4 +8,4 @@ class FieldModel(BaseModel):
   price_by_slot: float
   category: str
   type: str
-  slot: list[SlotModel]
+  slots: list[SlotModel]

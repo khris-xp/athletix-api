@@ -131,19 +131,61 @@ class Stadium:
 
   def add_field(self, field: dict) -> dict:
     self.__fields.append(field)
-    return field
+    slot_list = []
+    for slot in field.get_slots():
+      slot_list.append(slot.to_dict())
+    field_dict = field.to_dict()
+    field_dict['slots'] = slot_list
+    return field_dict
 
   def get_fields(self) -> list[dict]:
-    return [field for field in self.__fields]
+    fields_list = []
+    for field in self.__fields:
+      slot_list = []
+      for slot in field.get_slots():
+        slot_list.append(slot.to_dict())
+      field_dict = field.to_dict()
+      field_dict['slots'] = slot_list
+      fields_list.append(field_dict)
+    return fields_list
 
   def get_field_by_id(self, id: str) -> dict | None:
     for field in self.__fields:
       if field.get_id() == id:
-        return field
+        slot_list = []
+        for slot in field.get_slots():
+          slot_list.append(slot.to_dict())
+        field_dict = field.to_dict()
+        field_dict['slots'] = slot_list
+        return field_dict
     return None
 
   def get_field_by_name(self, name: str) -> dict | None:
     for field in self.__fields:
       if field.get_name() == name:
-        return field
+        slot_list = []
+        for slot in field.get_slots():
+          slot_list.append(slot.to_dict())
+        field_dict = field.to_dict()
+        field_dict['slots'] = slot_list
+        return field_dict
+    return None
+
+  def update_field(self, id: str, body: dict) -> dict | None:
+    for field in self.__fields:
+      if field.get_id() == id:
+        field.set_name(body["name"])
+        field.set_description(body['description'])
+        field.set_price_by_slot(body['price_by_slot'])
+        field.set_category(body['category'])
+        field.set_type(body['type'])
+        field.set_slots(body['slots'])
+        return field.to_dict()
+    return None
+
+  def delete_field(self, id: str) -> str | None:
+    for field in self.__fields:
+      if field.get_id() == id:
+        self.__fields.remove(field)
+        return "Delete field successfully"
     return None
