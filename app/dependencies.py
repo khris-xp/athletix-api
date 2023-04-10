@@ -62,9 +62,10 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     token_data = TokenData(id=user_id, role=role)
 
   except JWTError:
-    raise credentials_exception
+    raise credentials_exception 
 
   user = stadium.get_user_by_id(user_id)
   if user is None:
     raise credentials_exception
   return user
+

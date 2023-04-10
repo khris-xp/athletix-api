@@ -3,14 +3,13 @@ import uuid
 
 
 class News:
-  def __init__(self, title: str, content: str, image_url: str, author: str, draft: bool) -> None:
+  def __init__(self, title: str, content: str, image_url: str, draft: bool) -> None:
     self.__id = str(uuid.uuid4())
     self.__title = title
     self.__content = content
     self.__image_url = image_url
     self.__created_at = datetime.now()
     self.__updated_at = datetime.now()
-    self.__author = author
     self.__draft = draft
 
   def to_dict(self) -> dict:
