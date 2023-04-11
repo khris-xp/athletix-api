@@ -6,15 +6,14 @@ class Stadium:
     self.__fields_collection = []
 
   def add_news(self, news: dict) -> dict:
-    self.__news_collection.append(news)
-    return news
+    return self.__news_collection.append(news) or news
 
   def get_news(self) -> list[dict]:
     return [news for news in self.__news_collection]
 
   def get_news_by_id(self, id: str) -> dict | None:
     return next((news for news in self.__news_collection if news.get_id() == id), None)
- 
+
   def get_news_by_title(self, title: str) -> dict | None:
     return next((news for news in self.__news_collection if news.get_title() == title), None)
 
@@ -25,8 +24,7 @@ class Stadium:
     return next((self.__news_collection.pop(index) or "Delete news successfully" for index, news in enumerate(self.__news_collection) if news.get_id() == id), None)
 
   def add_equipment(self, equipment: dict) -> dict:
-    self.__equipments_collection.append(equipment)
-    return equipment
+    return self.__equipments_collection.append(equipment) or equipment
 
   def get_equipments(self) -> list[dict]:
     return [equipment for equipment in self.__equipments_collection]
@@ -44,8 +42,7 @@ class Stadium:
     return next((self.__equipments_collection.pop(index) or "Delete equipment successfully" for index, equipment in enumerate(self.__equipments_collection) if equipment.get_id() == id), None)
 
   def add_user(self, user: dict) -> dict:
-    self.__users_collection.append(user)
-    return user
+    return self.__users_collection.append(user) or user
 
   def get_users(self) -> list[dict]:
     return [user for user in self.__users_collection]
@@ -60,65 +57,22 @@ class Stadium:
     return next((user for user in self.__users_collection if user.get_phone_number() == phone_number), None)
 
   def get_user_by_id(self, id: str) -> dict | None:
-    return next((user for user in self.__users_collection if user.get_id() == id), None)  
+    return next((user for user in self.__users_collection if user.get_id() == id), None)
 
   def add_field(self, field: dict) -> dict:
-    self.__fields_collection.append(field)
-    slot_list = []
-    for slot in field.get_slots():
-      slot_list.append(slot.to_dict())
-    field_dict = field.to_dict()
-    field_dict['slots'] = slot_list
-    return field_dict
+    return self.__fields_collection.append(field) or field
 
   def get_fields(self) -> list[dict]:
-    fields_list = []
-    for field in self.__fields_collection:
-      slot_list = []
-      for slot in field.get_slots():
-        slot_list.append(slot.to_dict())
-      field_dict = field.to_dict()
-      field_dict['slots'] = slot_list
-      fields_list.append(field_dict)
-    return fields_list
+    return [field for field in self.__fields_collection]
 
   def get_field_by_id(self, id: str) -> dict | None:
-    for field in self.__fields_collection:
-      if field.get_id() == id:
-        slot_list = []
-        for slot in field.get_slots():
-          slot_list.append(slot.to_dict())
-        field_dict = field.to_dict()
-        field_dict['slots'] = slot_list
-        return field_dict
-    return None
+    return next((field for field in self.__fields_collection if field.get_id() == id), None)
 
   def get_field_by_name(self, name: str) -> dict | None:
-    for field in self.__fields_collection:
-      if field.get_name() == name:
-        slot_list = []
-        for slot in field.get_slots():
-          slot_list.append(slot.to_dict())
-        field_dict = field.to_dict()
-        field_dict['slots'] = slot_list
-        return field_dict
-    return None
+    return next((field for field in self.__fields_collection if field.get_name() == name), None)
 
   def update_field(self, id: str, body: dict) -> dict | None:
-    for field in self.__fields_collection:
-      if field.get_id() == id:
-        field.set_name(body["name"])
-        field.set_description(body['description'])
-        field.set_price_by_slot(body['price_by_slot'])
-        field.set_category(body['category'])
-        field.set_type(body['type'])
-        field.set_slots(body['slots'])
-        return field.to_dict()
-    return None
+    return next((field for field in self.__fields_collection if field.get_id() == id and all(hasattr(field, f"set_{key}") and getattr(field, f"set_{key}")(value) or True for key, value in body.items())), None)
 
   def delete_field(self, id: str) -> str | None:
-    for field in self.__fields_collection:
-      if field.get_id() == id:
-        self.__fields_collection.remove(field)
-        return "Delete field successfully"
-    return None
+    return next((self.__fields_collection.pop(index) or "Delete field successfully" for index, field in enumerate(self.__fields_collection) if field.get_id() == id), None)
