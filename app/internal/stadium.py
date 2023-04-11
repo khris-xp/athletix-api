@@ -48,49 +48,19 @@ class Stadium:
     return user
 
   def get_users(self) -> list[dict]:
-    users_list = []
-    for user in self.__users_collection:
-      user_dict = user.to_dict()
-      account_dict = user.get_account().to_dict()
-      user_dict['account'] = account_dict
-      users_list.append(user_dict)
-    return users_list
+    return [user for user in self.__users_collection]
 
   def get_user_by_email(self, email: str) -> dict | None:
-    for user in self.__users_collection:
-      if user.get_email() == email:
-        user_dict = user.to_dict()
-        account_dict = user.get_account().to_dict()
-        user_dict['account'] = account_dict
-        return user_dict
-    return None
+    return next((user for user in self.__users_collection if user.get_email() == email), None)
 
   def get_user_by_fullname(self, fullname: str) -> dict | None:
-    for user in self.__users_collection:
-      if user.get_fullname() == fullname:
-        user_dict = user.to_dict()
-        account_dict = user.get_account().to_dict()
-        user_dict['account'] = account_dict
-        return user_dict
-    return None
+    return next((user for user in self.__users_collection if user.get_fullname() == fullname), None)
 
   def get_user_by_phone_number(self, phone_number: str) -> dict | None:
-    for user in self.__users_collection:
-      if user.get_phone_number() == phone_number:
-        user_dict = user.to_dict()
-        account_dict = user.get_account().to_dict()
-        user_dict['account'] = account_dict
-        return user_dict
-    return None
+    return next((user for user in self.__users_collection if user.get_phone_number() == phone_number), None)
 
   def get_user_by_id(self, id: str) -> dict | None:
-    for user in self.__users_collection:
-      if user.get_id() == id:
-        user_dict = user.to_dict()
-        account_dict = user.get_account().to_dict()
-        user_dict['account'] = account_dict
-        return user_dict
-    return None
+    return next((user for user in self.__users_collection if user.get_id() == id), None)  
 
   def add_field(self, field: dict) -> dict:
     self.__fields_collection.append(field)
