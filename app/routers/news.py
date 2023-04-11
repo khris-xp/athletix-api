@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from ..database import stadium
 from ..internal.news import News
 from ..models.news import NewsModel
+from ..dependencies import role_required
+from ..dependencies import get_current_user
 
 router = APIRouter(
     prefix="/news", tags=["news"], responses={404: {"description": "Not found"}})
@@ -24,10 +26,11 @@ async def get_news_by_id(id: str):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_news(body: NewsModel):
-  newsExist = stadium.get_news_by_title(body.title)
+@role_required("admin")
+async def create_news(body: NewsModel,  user=Depends(get_current_user)):
+  news_exist = stadium.get_news_by_title(body.title)
 
-  if newsExist is not None:
+  if news_exist is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="News already existed")
 
@@ -38,7 +41,8 @@ async def create_news(body: NewsModel):
 
 
 @router.patch("/{id}")
-async def update_news(id: str, body: NewsModel):
+@role_required("admin")
+async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
   updated_news = stadium.update_news(id, body.dict())
 
   if updated_news is None:
@@ -49,9 +53,10 @@ async def update_news(id: str, body: NewsModel):
 
 
 @router.delete("/{id}")
-async def delete_news(id: str):
+@role_required("admin")
+async def delete_news(id: str, user=Depends(get_current_user)):
   deleted_news = stadium.delete_news(id)
-  
+
   if deleted_news is None:
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="News not found")
