@@ -7,12 +7,6 @@ class SlotDate(Slot):
     super().__init__(start_time, end_time)
     self.__date = date
 
-  def to_dict(self) -> dict:
-    return {
-        key.replace("_SlotDate__", ""): value
-        for key, value in super().to_dict().items()
-    }
-
   def get_date(self):
     return self.__date
 

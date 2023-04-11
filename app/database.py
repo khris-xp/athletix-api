@@ -1,5 +1,5 @@
 from .internal.stadium import Stadium
-from .constants.user import admin1, admin2, frontdesk1, frontdesk2, customer1, customer2
+from .constants.users import admin1, admin2, frontdesk1, frontdesk2, customer1, customer2
 from .constants.news import news_1, news_2, news_3
 
 stadium = Stadium()

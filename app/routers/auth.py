@@ -35,7 +35,7 @@ async def register(body: RegisterModel):
       status_code=status.HTTP_201_CREATED,
       content={"message": "User created successfully."},
       headers={"Authorization": create_access_token(
-          data={"sub": new_person['id'], "role": new_person['account']['role']})}
+          data={"sub": new_person.get_id(), "role": new_person.get_account().get_role()})}
   )
 
 
@@ -51,5 +51,5 @@ async def login(body: LoginModel):
       status_code=status.HTTP_200_OK,
       content={"message": "User logged in successfully."},
       headers={"Authorization": create_access_token(
-          data={"sub": user['id'], "role": user['account']['role']})}
+          data={"sub": user.get_id(), "role": user.get_account().get_role()})}
   )

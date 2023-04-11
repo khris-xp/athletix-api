@@ -41,7 +41,7 @@ def authenticate_user(email, password):
   user = stadium.get_user_by_email(email)
   if not user:
     return None
-  if not verify_password(password, user['account']['password']):
+  if not verify_password(password, user.get_account().get_password()):
     return None
   return user
 

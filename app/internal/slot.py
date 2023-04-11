@@ -9,12 +9,6 @@ class Slot:
     self.__end_time = end_time
     self.__is_booked = False
 
-  def to_dict(self) -> dict:
-    return {
-        key.replace("_Slot__", ""): value
-        for key, value in self.__dict__.items()
-    }
-
   def get_id(self) -> str:
     return self.__id
 
