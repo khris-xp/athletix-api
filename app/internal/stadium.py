@@ -58,6 +58,9 @@ class Stadium:
 
   def get_user_by_id(self, id: str) -> dict | None:
     return next((user for user in self.__users_collection if user.get_id() == id), None)
+  
+  def update_user(self, id: str, body:dict) -> dict | None:
+    return next((user for user in self.__users_collection if user.get_id() == id and all(hasattr(user, f"set_{key}") and getattr(user, f"set_{key}")(value) or True for key, value in body.items())), None)
 
   def add_field(self, field: dict) -> dict:
     return self.__fields_collection.append(field) or field

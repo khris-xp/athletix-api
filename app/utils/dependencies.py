@@ -84,3 +84,10 @@ def role_required(role: str):
 
     return wrapper
   return decorator
+
+
+def check_role(role: list[str], user=Depends(get_current_user)):
+  if user.get_account().get_role() not in role:
+    raise HTTPException(status_code=403, detail="Forbidden")
+
+  return user
