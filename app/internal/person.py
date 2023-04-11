@@ -16,8 +16,8 @@ class Person:
 
   def to_dict(self) -> dict:
     return {
-        key.replace('_Person__', ''): value
-        for key, value in self.__dict__.items()
+      key.replace('_Person__', ''): value
+      for key, value in self.__dict__.items()
     }
 
   def get_id(self) -> str:

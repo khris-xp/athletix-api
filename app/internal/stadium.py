@@ -14,7 +14,7 @@ class Stadium:
 
   def get_news_by_id(self, id: str) -> dict | None:
     return next((news for news in self.__news_collection if news.get_id() == id), None)
-
+ 
   def get_news_by_title(self, title: str) -> dict | None:
     return next((news for news in self.__news_collection if news.get_title() == title), None)
 
