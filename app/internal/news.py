@@ -12,12 +12,6 @@ class News:
     self.__updated_at = datetime.now()
     self.__draft = draft
 
-  def to_dict(self) -> dict:
-    return {
-        key.replace("_News__", ""): value
-        for key, value in self.__dict__.items()
-    }
-
   def get_id(self) -> str:
     return self.__id
 

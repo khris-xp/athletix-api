@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import JSONResponse
 from ..internal.customer import Customer
 from ..internal.account import Account
 from ..database import stadium
@@ -30,9 +31,12 @@ async def register(body: RegisterModel):
 
   new_person = stadium.add_user(person)
 
-  return {
-      "access_token":  create_access_token(data={"sub": new_person['id'], "role": new_person['account']['role']})
-  }
+  return JSONResponse(
+      status_code=status.HTTP_201_CREATED,
+      content={"message": "User created successfully."},
+      headers={"Authorization": create_access_token(
+          data={"sub": new_person['id'], "role": new_person['account']['role']})}
+  )
 
 
 @router.post('/login')
@@ -43,7 +47,9 @@ async def login(body: LoginModel):
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, detail='Unauthorized')
 
-  return {
-      "access_token": create_access_token(
-          data={"sub": user['id'], "role": user['account']['role']}),
-  }
+  return JSONResponse(
+      status_code=status.HTTP_200_OK,
+      content={"message": "User logged in successfully."},
+      headers={"Authorization": create_access_token(
+          data={"sub": user['id'], "role": user['account']['role']})}
+  )

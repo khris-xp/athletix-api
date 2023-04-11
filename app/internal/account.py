@@ -2,11 +2,11 @@ class Account:
   def __init__(self, password: str, role="customer") -> None:
     self.__password = password
     self.__role = role
-
+    
   def to_dict(self) -> dict:
     return {
-        key.replace('_Account__', ''): value
-        for key, value in self.__dict__.items()
+      key.replace('_Account__', ''): value
+      for key, value in self.__dict__.items()
     }
 
   def get_password(self) -> str:
