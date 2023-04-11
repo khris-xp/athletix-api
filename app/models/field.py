@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from ..models.slot import SlotModel
+from datetime import datetime
 
 
 class FieldModel(BaseModel):
@@ -8,4 +8,3 @@ class FieldModel(BaseModel):
   price_by_slot: float
   category: str
   type: str
-  slots: list[SlotModel]

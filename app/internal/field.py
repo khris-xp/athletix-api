@@ -11,12 +11,6 @@ class Field:
     self.__type = type
     self.__slots = []
 
-  def to_dict(self) -> dict:
-    return {
-        key.replace("_Field__", ""): value
-        for key, value in self.__dict__.items()
-    }
-
   def get_id(self) -> str:
     return self.__id
 
@@ -52,7 +46,7 @@ class Field:
 
   def set_type(self, type: str) -> None:
     self.__type = type
-  
+
   def set_slots(self, slots: list) -> None:
     self.__slots = slots
 

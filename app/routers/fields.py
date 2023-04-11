@@ -3,6 +3,7 @@ from ..models.field import FieldModel
 from ..database import stadium
 from ..internal.field import Field
 from ..internal.slot_date import SlotDate
+from datetime import datetime, timedelta
 
 router = APIRouter(
     prefix="/fields", tags=["fields"], responses={404: {"description": "Not found"}})
@@ -24,17 +25,26 @@ async def get_field(id: str):
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_field(body: FieldModel):
-  field = Field(body.name, body.description,
-                body.price_by_slot, body.category, body.type)
-
-  if stadium.get_field_by_name(field.get_name()) is not None:
+  fieldExist = stadium.get_field_by_name(body.name)
+  if fieldExist is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="Field name already exists")
 
-  slots = [SlotDate(**slot.dict()) for slot in body.slots]
-  for slot in slots:
-    field.add_slot(slot)
+  field = Field(**body.dict())
+
   new_field = stadium.add_field(field)
+
+  tomorrow = datetime.now() + timedelta(days=1)
+  start_time = tomorrow.replace(hour=9, minute=0, second=0, microsecond=0)
+  end_time = tomorrow.replace(
+      day=1, hour=20, minute=0, second=0, microsecond=0) + timedelta(days=30)
+  duration = timedelta(hours=1)
+
+  while start_time < end_time:
+    slot = SlotDate(start_time, start_time + duration, start_time)
+    new_field.add_slot(slot)
+    start_time += duration
+
   return new_field
 
 
