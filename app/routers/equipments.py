@@ -2,6 +2,8 @@ from fastapi import APIRouter, status, HTTPException
 from ..database import stadium
 from ..models.equipment import EquipmentModel
 from ..internal.football import FootBall
+from ..internal.shuttlecock import ShuttleCock
+from ..internal.basketball import BasketBall
 from ..internal.vest import Vest
 
 router = APIRouter(prefix="/equipments",
@@ -24,32 +26,30 @@ async def get_equipment(equipment_id: str):
   return equipment
 
 
-@router.post("/football", status_code=status.HTTP_201_CREATED)
-async def add_football_equipment(body: EquipmentModel):
-  equipmentExist = stadium.get_equipment_by_name(body.name)
+@router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
+async def add_equipment(equipment_type: str, body: EquipmentModel):
+  equipment_exist = stadium.get_equipment_by_name(body.name)
 
-  if equipmentExist is not None:
+  if equipment_exist is not None:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Football already existed")
+                        detail="Equipment already exists")
 
-  football = FootBall(**body.dict())
-
-  new_football = stadium.add_equipment(football)
-  return new_football
-
-
-@router.post("/vest", status_code=status.HTTP_201_CREATED)
-async def add_vest_equipment(body: EquipmentModel):
-  vestExist = stadium.get_equipment_by_name(body.name)
-
-  if vestExist is not None:
+  equipment = None
+  if equipment_type == "football":
+    equipment = FootBall(**body.dict())
+  elif equipment_type == "vest":
+    equipment = Vest(**body.dict())
+  elif equipment_type == "shuttlecock":
+    equipment = ShuttleCock(**body.dict())
+  elif equipment_type == "basketball":
+    equipment = BasketBall(**body.dict())
+  else:
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Vest already existed")
+                        detail="Equipment type is not supported")
 
-  vest = Vest(**body.dict())
+  new_equipment = stadium.add_equipment(equipment)
 
-  new_vest = stadium.add_equipment(vest)
-  return new_vest
+  return new_equipment
 
 
 @router.patch("/{equipment_id}")
