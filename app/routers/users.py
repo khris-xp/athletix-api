@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from ..dependencies import get_current_user
+from ..utils.dependencies import get_current_user
 
 router = APIRouter(
     prefix="/users", tags=["users"], responses={404: {"description": "Not found"}})

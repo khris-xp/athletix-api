@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
-from ..database import stadium
+from ..database.database import stadium
 from ..models.equipment import EquipmentModel
 from ..internal.football import FootBall
 from ..internal.shuttlecock import ShuttleCock
