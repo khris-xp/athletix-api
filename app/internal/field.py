@@ -9,7 +9,7 @@ class Field:
     self.__price_by_slot = price_by_slot
     self.__category = category
     self.__type = type
-    self.__slots = []
+    self.__booking_slots = []
 
   def get_id(self) -> str:
     return self.__id
@@ -29,8 +29,8 @@ class Field:
   def get_type(self) -> str:
     return self.__type
 
-  def get_slots(self) -> list:
-    return self.__slots
+  def get_booking_slots(self) -> list:
+    return self.__booking_slots
 
   def set_name(self, name: str) -> None:
     self.__name = name
@@ -51,5 +51,5 @@ class Field:
     self.__slots = slots
 
   def add_slot(self, slot: dict) -> dict:
-    return self.__slots.append(slot) or slot
+    return self.__booking_slots.append(slot) or slot
     

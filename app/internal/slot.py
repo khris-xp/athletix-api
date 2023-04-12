@@ -1,10 +1,8 @@
 from datetime import datetime
-import uuid
 
 
 class Slot:
   def __init__(self, start_time: datetime, end_time: datetime) -> None:
-    self.__id = str(uuid.uuid4())
     self.__start_time = start_time
     self.__end_time = end_time
     self.__is_booked = False

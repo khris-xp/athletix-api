@@ -2,8 +2,6 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from ..models.field import FieldModel
 from ..database.database import stadium
 from ..internal.field import Field
-from ..internal.slot_date import SlotDate
-from datetime import datetime, timedelta
 from ..utils.dependencies import get_current_user, role_required
 
 router = APIRouter(

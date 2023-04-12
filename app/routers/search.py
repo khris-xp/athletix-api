@@ -6,5 +6,5 @@ router = APIRouter(
 
 
 @router.get("/")
-async def search(type: str, date: str):
-  return "search"
+async def search(category: str, date: str):
+  return stadium.search_fields_by_category_and_date(category, date)

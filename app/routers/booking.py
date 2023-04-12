@@ -13,3 +13,8 @@ async def create_booking(current_user=Depends(get_current_user)):
 @router.get("/history")
 async def get_history(current_user=Depends(get_current_user)):
   return {"message": "Get booking history"}
+
+
+@router.post("/cancel")
+async def cancel_booking(current_user=Depends(get_current_user)):
+  return {"message": "Cancel an appointment"}

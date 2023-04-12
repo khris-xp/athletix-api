@@ -7,3 +7,8 @@ router = APIRouter(prefix="/payments", tags=["payments"], responses={
 @router.post("/")
 async def create_payment():
   return {"message": "payment created"}
+
+
+@router.post("/cancel")
+async def cancel_payment():
+  return {"message": "payment cancelled"}

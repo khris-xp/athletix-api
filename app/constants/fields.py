@@ -7,11 +7,23 @@ field1_slots1 = SlotDate(
     end_time="10:00"
 )
 
+field1_slots1.set_is_booked(True)
+
 field1_slots2 = SlotDate(
     date="2023-04-16",
     start_time="10:00",
     end_time="11:00"
 )
+
+field1_slots2.set_is_booked(True)
+
+field1_slots3 = SlotDate(
+    date="2023-04-16",
+    start_time="11:00",
+    end_time="12:00"
+)
+
+field1_slots3.set_is_booked(True)
 
 football1_field = Field(
     name="Football Field 1",
@@ -23,6 +35,7 @@ football1_field = Field(
 
 football1_field.add_slot(field1_slots1)
 football1_field.add_slot(field1_slots2)
+football1_field.add_slot(field1_slots3)
 
 football2_field = Field(
     name="Football Field 2",
