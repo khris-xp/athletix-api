@@ -51,5 +51,5 @@ class Field:
     self.__slots = slots
 
   def add_slot(self, slot: dict) -> dict:
-    self.__slots.append(slot)
-    return slot
+    return self.__slots.append(slot) or slot
+    

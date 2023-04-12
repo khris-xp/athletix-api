@@ -1,4 +1,17 @@
 from ..internal.field import Field
+from ..internal.slot_date import SlotDate
+
+field1_slots1 = SlotDate(
+    date="2023-04-15",
+    start_time="09:00",
+    end_time="10:00"
+)
+
+field1_slots2 = SlotDate(
+    date="2023-04-16",
+    start_time="10:00",
+    end_time="11:00"
+)
 
 football1_field = Field(
     name="Football Field 1",
@@ -7,6 +20,9 @@ football1_field = Field(
     category="Football",
     type="Outdoor"
 )
+
+football1_field.add_slot(field1_slots1)
+football1_field.add_slot(field1_slots2)
 
 football2_field = Field(
     name="Football Field 2",

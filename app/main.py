@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import auth, booking, equipments, payments, users, fields, news
+from .routers import auth, booking, equipments, payments, users, fields, news, search
 
 app = FastAPI()
 
@@ -20,6 +20,7 @@ app.include_router(equipments.router)
 app.include_router(payments.router)
 app.include_router(fields.router)
 app.include_router(news.router)
+app.include_router(search.router)
 
 
 @app.get("/")
