@@ -14,12 +14,6 @@ class Person:
     self.__emergency_contact_phone_number = emergency_contact_phone_number
     self.__account = account
 
-  def to_dict(self) -> dict:
-    return {
-      key.replace('_Person__', ''): value
-      for key, value in self.__dict__.items()
-    }
-
   def get_id(self) -> str:
     return self.__id
 

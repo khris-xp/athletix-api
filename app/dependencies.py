@@ -7,8 +7,10 @@ from passlib.context import CryptContext
 from .config.config import get_settings
 from pydantic import BaseModel
 from .database import stadium
+from functools import wraps
 
 settings = get_settings()
+
 
 class TokenData(BaseModel):
   id: str
@@ -41,7 +43,7 @@ def authenticate_user(email, password):
   user = stadium.get_user_by_email(email)
   if not user:
     return None
-  if not verify_password(password, user['account']['password']):
+  if not verify_password(password, user.get_account().get_password()):
     return None
   return user
 
@@ -63,10 +65,22 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     token_data = TokenData(id=user_id, role=role)
 
   except JWTError:
-    raise credentials_exception 
+    raise credentials_exception
 
   user = stadium.get_user_by_id(user_id)
   if user is None:
     raise credentials_exception
   return user
 
+
+def role_required(role: str):
+  def decorator(func):
+    @wraps(func)
+    async def wrapper(*args, user=Depends(get_current_user), **kwargs):
+      if user.get_account().get_role() != role:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+      return await func(*args, user=user, **kwargs)
+
+    return wrapper
+  return decorator
