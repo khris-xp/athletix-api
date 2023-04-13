@@ -8,7 +8,6 @@ class Stadium(Search):
     self.__equipments_collection = []
     self.__users_collection = []
     self.__fields_collection = []
-    self.__booking_collection = []
 
   def add_news(self, news: dict) -> dict:
     return self.__news_collection.append(news) or news

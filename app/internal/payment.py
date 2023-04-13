@@ -3,7 +3,7 @@ import uuid
 
 
 class Payment:
-  def __init__(self, amount: float, is_payed: bool) -> None:
+  def __init__(self, amount: float, is_payed=False) -> None:
     self.__id = str(uuid.uuid4())
     self.__amount = amount
     self.__is_payed = is_payed

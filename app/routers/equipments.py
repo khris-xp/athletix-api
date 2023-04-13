@@ -29,7 +29,7 @@ async def get_equipment(equipment_id: str):
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
 @role_required("admin")
-async def add_equipment(equipment_type: str, body: EquipmentModel, current_user=Depends(get_current_user)):
+async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(get_current_user)):
   equipment_exist = stadium.get_equipment_by_name(body.name)
 
   if equipment_exist is not None:
@@ -56,7 +56,7 @@ async def add_equipment(equipment_type: str, body: EquipmentModel, current_user=
 
 @router.patch("/{equipment_id}")
 @role_required("admin")
-async def update_equipment(equipment_id: str, equipment: EquipmentModel, current_user=Depends(get_current_user)):
+async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=Depends(get_current_user)):
   update_equipment = stadium.update_equipment(equipment_id, equipment.dict())
 
   if update_equipment is None:
@@ -68,7 +68,7 @@ async def update_equipment(equipment_id: str, equipment: EquipmentModel, current
 
 @router.delete("/{equipment_id}")
 @role_required("admin")
-async def delete_equipment(equipment_id: str, current_user=Depends(get_current_user)):
+async def delete_equipment(equipment_id: str, user=Depends(get_current_user)):
   delete_equipment = stadium.delete_equipment(equipment_id)
 
   if delete_equipment is None:

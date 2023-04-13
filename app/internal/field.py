@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 
 
@@ -32,7 +33,7 @@ class Field:
   def get_booking_slots(self) -> list:
     return self.__booking_slots
 
-  def get_booking_slots_by_date(self, date: str) -> list[dict]:
+  def get_booking_slots_by_date(self, date: datetime) -> list[dict]:
     return [booking_slots for booking_slots in self.__booking_slots if booking_slots.get_date() == date]
 
   def set_name(self, name: str) -> None:
