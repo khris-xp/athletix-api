@@ -1,10 +1,11 @@
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status, HTTPException, Depends
 from ..database.database import stadium
 from ..models.equipment import EquipmentModel
 from ..internal.football import FootBall
 from ..internal.shuttlecock import ShuttleCock
 from ..internal.basketball import BasketBall
 from ..internal.vest import Vest
+from ..utils.dependencies import get_current_user, role_required
 
 router = APIRouter(prefix="/equipments",
                    tags=["equipments"], responses={404: {"description": "Not found"}})
@@ -27,7 +28,8 @@ async def get_equipment(equipment_id: str):
 
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
-async def add_equipment(equipment_type: str, body: EquipmentModel):
+@role_required("admin")
+async def add_equipment(equipment_type: str, body: EquipmentModel, current_user=Depends(get_current_user)):
   equipment_exist = stadium.get_equipment_by_name(body.name)
 
   if equipment_exist is not None:
@@ -53,7 +55,8 @@ async def add_equipment(equipment_type: str, body: EquipmentModel):
 
 
 @router.patch("/{equipment_id}")
-async def update_equipment(equipment_id: str, equipment: EquipmentModel):
+@role_required("admin")
+async def update_equipment(equipment_id: str, equipment: EquipmentModel, current_user=Depends(get_current_user)):
   update_equipment = stadium.update_equipment(equipment_id, equipment.dict())
 
   if update_equipment is None:
@@ -64,7 +67,8 @@ async def update_equipment(equipment_id: str, equipment: EquipmentModel):
 
 
 @router.delete("/{equipment_id}")
-async def delete_equipment(equipment_id: str):
+@role_required("admin")
+async def delete_equipment(equipment_id: str, current_user=Depends(get_current_user)):
   delete_equipment = stadium.delete_equipment(equipment_id)
 
   if delete_equipment is None:

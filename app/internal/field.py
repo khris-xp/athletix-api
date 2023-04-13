@@ -32,6 +32,9 @@ class Field:
   def get_booking_slots(self) -> list:
     return self.__booking_slots
 
+  def get_booking_slots_by_date(self, date: str) -> list[dict]:
+    return [booking_slots for booking_slots in self.__booking_slots if booking_slots.get_date() == date]
+
   def set_name(self, name: str) -> None:
     self.__name = name
 
@@ -47,9 +50,8 @@ class Field:
   def set_type(self, type: str) -> None:
     self.__type = type
 
-  def set_slots(self, slots: list) -> None:
-    self.__slots = slots
+  def set_booking_slots(self, booking_slots: list) -> None:
+    self.__booking_slots = booking_slots
 
   def add_slot(self, slot: dict) -> dict:
     return self.__booking_slots.append(slot) or slot
-    

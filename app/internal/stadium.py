@@ -1,4 +1,5 @@
 from .search import Search
+from copy import copy
 
 
 class Stadium(Search):
@@ -85,4 +86,10 @@ class Stadium(Search):
     return next((self.__fields_collection.pop(index) or "Delete field successfully" for index, field in enumerate(self.__fields_collection) if field.get_id() == id), None)
 
   def search_fields_by_category_and_date(self, category: str, date: str) -> list[dict]:
-    return [field for field in self.__fields_collection if field.get_category().lower() == category.lower() and (any(slot.get_date() == date for slot in field.get_booking_slots()) or not any(slot.get_date() for slot in field.get_booking_slots()))]
+    filtered_fields = []
+    for field in self.__fields_collection:
+      if field.get_category().lower() == category.lower():
+        filtered_field = copy(field)
+        filtered_field.set_booking_slots(field.get_booking_slots_by_date(date))
+        filtered_fields.append(filtered_field)
+    return filtered_fields
