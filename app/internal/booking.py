@@ -10,7 +10,7 @@ class Booking:
     self.__field_id = field_id
     self.__equipments = equipments
     self.__payment = payment
-    self.__status = "Pending"
+    self.__status = "pending"
     self.__created_at = datetime.now()
 
   def get_id(self) -> str:
