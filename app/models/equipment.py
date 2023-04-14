@@ -3,5 +3,5 @@ from pydantic import BaseModel
 
 class EquipmentModel(BaseModel):
   name: str
-  price: float
+  price_per_unit: float
   quantity: int

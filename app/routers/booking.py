@@ -5,7 +5,8 @@ from ..internal.booking import Booking
 from ..internal.slot_date import SlotDate
 from ..models.booking import BookingModel
 from ..database.database import stadium, booking_history
-from ..internal.payment import Payment
+from ..internal.cash_payment import CashPayment
+from ..internal.promptpay_payment import PromptPayPayment
 
 router = APIRouter(prefix="/booking",
                    tags=["booking"], responses={404: {"description": "Not found"}})
@@ -50,7 +51,14 @@ async def create_booking(body: BookingModel, user=Depends(get_current_user)):
         equipment_exist.get_quantity() - equipment['quantity'])
     price += equipment_exist.get_price_per_unit() * equipment['quantity']
 
-  new_payment = Payment(amount=price)
+  if body.payment_method == "cash":
+    new_payment = CashPayment(amount=price)
+  elif body.payment_method == "promptpay":
+    new_payment = PromptPayPayment(amount=price)
+  else:
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid")
+
   new_booking = Booking(slot=slot, equipments=body.equipments,
                         customer_id=user.get_id(), field_id=body.field_id, payment=new_payment)
 
