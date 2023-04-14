@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
 from ..internal.customer import Customer
 from ..internal.account import Account
-from ..database import stadium
+from ..database.database import stadium
 from ..models.auth import RegisterModel, LoginModel
-from ..dependencies import get_password_hash, create_access_token, authenticate_user
+from ..utils.dependencies import get_password_hash, create_access_token, authenticate_user
 
 router = APIRouter(prefix='/auth', tags=['auth'], responses={
                    404: {'description': 'Not found'}})
