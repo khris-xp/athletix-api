@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class PaymentModel(BaseModel):
+class PromptpayPaymentModel(BaseModel):
   booking_id: str
   payment_id: str
   slip_image: str
