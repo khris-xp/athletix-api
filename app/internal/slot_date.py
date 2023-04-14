@@ -9,6 +9,6 @@ class SlotDate(Slot):
 
   def get_date(self):
     return self.__date
-
-  def set_date(self, date: datetime) -> None:
-    self.__date = date
+    
+  def is_equal(self, start_time: datetime, end_time: datetime, date: datetime) -> bool:
+    return self.__date == date and super().is_equal(start_time, end_time)

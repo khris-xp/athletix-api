@@ -4,9 +4,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from .config.config import get_settings
+from ..config.config import get_settings
 from pydantic import BaseModel
-from .database import stadium
+from ..database.database import stadium
 from functools import wraps
 
 settings = get_settings()

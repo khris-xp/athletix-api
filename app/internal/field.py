@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 
 
@@ -9,7 +10,7 @@ class Field:
     self.__price_by_slot = price_by_slot
     self.__category = category
     self.__type = type
-    self.__slots = []
+    self.__booking_slots = []
 
   def get_id(self) -> str:
     return self.__id
@@ -29,8 +30,11 @@ class Field:
   def get_type(self) -> str:
     return self.__type
 
-  def get_slots(self) -> list:
-    return self.__slots
+  def get_booking_slots(self) -> list:
+    return self.__booking_slots
+
+  def get_booking_slots_by_date(self, date: datetime) -> list[dict]:
+    return [booking_slots for booking_slots in self.__booking_slots if booking_slots.get_date() == date]
 
   def set_name(self, name: str) -> None:
     self.__name = name
@@ -47,9 +51,8 @@ class Field:
   def set_type(self, type: str) -> None:
     self.__type = type
 
-  def set_slots(self, slots: list) -> None:
-    self.__slots = slots
+  def set_booking_slots(self, booking_slots: list) -> None:
+    self.__booking_slots = booking_slots
 
   def add_slot(self, slot: dict) -> dict:
-    self.__slots.append(slot)
-    return slot
+    return self.__booking_slots.append(slot) or slot

@@ -15,3 +15,7 @@ class RegisterModel(BaseModel):
 class LoginModel(BaseModel):
   email: EmailStr
   password: str
+
+class ChangePasswordModel(BaseModel):
+  old_password: str
+  new_password: str

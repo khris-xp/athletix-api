@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from ..database import stadium
+from ..database.database import stadium
 from ..internal.news import News
 from ..models.news import NewsModel
-from ..dependencies import role_required
-from ..dependencies import get_current_user
+from ..utils.dependencies import role_required
+from ..utils.dependencies import get_current_user
 
 router = APIRouter(
     prefix="/news", tags=["news"], responses={404: {"description": "Not found"}})
