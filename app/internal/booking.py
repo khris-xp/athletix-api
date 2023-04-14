@@ -31,5 +31,8 @@ class Booking:
   def get_status(self) -> str:
     return self.__status
 
+  def get_payment(self) -> dict:
+    return self.__payment
+
   def set_status(self, status: str) -> None:
     self.__status = status

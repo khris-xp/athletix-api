@@ -30,7 +30,7 @@ football1_field = Field(
     description="A standard football field with grass surface.",
     price_by_slot=500,
     category="Football",
-    type="Outdoor"
+    type="outdoor"
 )
 
 football1_field.add_slot(field1_slots1)
@@ -42,7 +42,7 @@ football2_field = Field(
     description="A standard football field with grass surface.",
     price_by_slot=500,
     category="Football",
-    type="Outdoor"
+    type="outdoor"
 )
 
 football3_field = Field(
@@ -50,7 +50,7 @@ football3_field = Field(
     description="A standard football field with grass surface.",
     price_by_slot=300,
     category="Football",
-    type="Indoor"
+    type="indoor"
 )
 
 basketball1_field = Field(
@@ -58,7 +58,7 @@ basketball1_field = Field(
     description="A standard basketball field with concrete surface.",
     price_by_slot=500,
     category="Basketball",
-    type="Indoor"
+    type="indoor"
 )
 
 basketball2_field = Field(
@@ -66,7 +66,7 @@ basketball2_field = Field(
     description="A standard basketball field with concrete surface.",
     price_by_slot=500,
     category="Basketball",
-    type="Indoor"
+    type="indoor"
 )
 
 basketball3_field = Field(
@@ -74,7 +74,7 @@ basketball3_field = Field(
     description="A standard basketball field with concrete surface.",
     price_by_slot=300,
     category="Basketball",
-    type="Outdoor"
+    type="outdoor"
 )
 
 badminton1_field = Field(
@@ -82,7 +82,7 @@ badminton1_field = Field(
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
     category="Badminton",
-    type="Indoor"
+    type="indoor"
 )
 
 badminton2_field = Field(
@@ -90,7 +90,7 @@ badminton2_field = Field(
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
     category="Badminton",
-    type="Indoor"
+    type="indoor"
 )
 
 badminton3_field = Field(
@@ -98,5 +98,5 @@ badminton3_field = Field(
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
     category="Badminton",
-    type="Indoor"
+    type="indoor"
 )

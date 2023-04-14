@@ -2,11 +2,12 @@ import uuid
 
 
 class Equipment:
-  def __init__(self, name: str, price_per_unit: float, quantity: int) -> None:
+  def __init__(self, name: str, price_per_unit: float, quantity: int, category: str) -> None:
     self.__id = str(uuid.uuid4())
     self.__name = name
     self.__price_per_unit = price_per_unit
     self.__quantity = quantity
+    self.__category = category
 
   def get_id(self) -> str:
     return self.__id
@@ -19,6 +20,9 @@ class Equipment:
 
   def get_price_per_unit(self) -> float:
     return self.__price_per_unit
+  
+  def get_category(self) -> str:
+    return self.__category
 
   def set_quantity(self, quantity: int) -> None:
     self.__quantity = quantity
