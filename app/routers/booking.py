@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from ..utils.dependencies import get_current_user, role_required
+from ..utils.dependencies import get_current_user, roles_required
 from ..database.database import booking_history
 from ..internal.booking import Booking
 from ..internal.slot_date import SlotDate
@@ -68,7 +68,7 @@ async def create_booking(body: BookingModel, user=Depends(get_current_user)):
 
 
 @router.get("/")
-@role_required("admin")
+@roles_required(["admin"])
 async def get_booking(user=Depends(get_current_user)):
   return booking_history.get_bookings()
 
@@ -79,7 +79,7 @@ async def get_history(user=Depends(get_current_user)):
 
 
 @router.post("/approve")
-@role_required("frontdesk")
+@roles_required(["frontdesk"])
 async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_user)):
   booking_exist = booking_history.get_booking_by_id(body.booking_id)
 

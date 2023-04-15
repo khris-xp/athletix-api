@@ -5,7 +5,7 @@ from ..internal.football import FootBall
 from ..internal.shuttlecock import ShuttleCock
 from ..internal.basketball import BasketBall
 from ..internal.vest import Vest
-from ..utils.dependencies import get_current_user, role_required
+from ..utils.dependencies import get_current_user, roles_required
 
 router = APIRouter(prefix="/equipments",
                    tags=["equipments"], responses={404: {"description": "Not found"}})
@@ -28,7 +28,7 @@ async def get_equipment(equipment_id: str):
 
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
-@role_required("admin")
+@roles_required(["admin"])
 async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(get_current_user)):
   equipment_exist = stadium.get_equipment_by_name(body.name)
 
@@ -55,7 +55,7 @@ async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(
 
 
 @router.patch("/{equipment_id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=Depends(get_current_user)):
   update_equipment = stadium.update_equipment(equipment_id, equipment.dict())
 
@@ -67,7 +67,7 @@ async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=De
 
 
 @router.delete("/{equipment_id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def delete_equipment(equipment_id: str, user=Depends(get_current_user)):
   delete_equipment = stadium.delete_equipment(equipment_id)
 
