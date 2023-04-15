@@ -79,7 +79,7 @@ async def get_history(user=Depends(get_current_user)):
 
 
 @router.post("/approve")
-@roles_required(["frontdesk"])
+@roles_required(["frontdesk", "admin"])
 async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_user)):
   booking_exist = booking_history.get_booking_by_id(body.booking_id)
 
