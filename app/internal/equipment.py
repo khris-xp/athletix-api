@@ -32,3 +32,6 @@ class Equipment:
 
   def set_name(self, name: str) -> None:
     self.__name = name
+    
+  def set_category(self, category: str) -> None:
+    self.__category = category
