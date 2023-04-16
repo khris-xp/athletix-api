@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from ..utils.dependencies import get_current_user, role_required
+from ..utils.dependencies import get_current_user, roles_required
 from ..database.database import booking_history
 from ..internal.booking import Booking
 from ..internal.slot_date import SlotDate
-from ..models.booking import BookingModel
+from ..models.booking import BookingModel, ApproveBookingModel
 from ..database.database import stadium, booking_history
 from ..internal.cash_payment import CashPayment
 from ..internal.promptpay_payment import PromptPayPayment
@@ -68,7 +68,7 @@ async def create_booking(body: BookingModel, user=Depends(get_current_user)):
 
 
 @router.get("/")
-@role_required("admin")
+@roles_required(["admin"])
 async def get_booking(user=Depends(get_current_user)):
   return booking_history.get_bookings()
 
@@ -76,3 +76,21 @@ async def get_booking(user=Depends(get_current_user)):
 @router.get("/history")
 async def get_history(user=Depends(get_current_user)):
   return booking_history.get_booking_by_user(user.get_id())
+
+
+@router.post("/approve")
+@roles_required(["frontdesk", "admin"])
+async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_user)):
+  booking_exist = booking_history.get_booking_by_id(body.booking_id)
+
+  if booking_exist is None:
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Booking not found")
+
+  if booking_exist.get_payment().get_is_payed() == False:
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Not pay yet")
+
+  booking_exist.set_status("success")
+
+  return {"message": "Approve successfully"}

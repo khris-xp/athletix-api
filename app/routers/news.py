@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from ..database.database import stadium
 from ..internal.news import News
 from ..models.news import NewsModel
-from ..utils.dependencies import role_required
+from ..utils.dependencies import roles_required
 from ..utils.dependencies import get_current_user
 
 router = APIRouter(
@@ -26,7 +26,7 @@ async def get_news_by_id(id: str):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-@role_required("admin")
+@roles_required(["admin"])
 async def create_news(body: NewsModel,  user=Depends(get_current_user)):
   news_exist = stadium.get_news_by_title(body.title)
 
@@ -41,7 +41,7 @@ async def create_news(body: NewsModel,  user=Depends(get_current_user)):
 
 
 @router.patch("/{id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
   updated_news = stadium.update_news(id, body.dict())
 
@@ -53,7 +53,7 @@ async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
 
 
 @router.delete("/{id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def delete_news(id: str, user=Depends(get_current_user)):
   deleted_news = stadium.delete_news(id)
 

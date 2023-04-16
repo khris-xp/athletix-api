@@ -73,11 +73,11 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
   return user
 
 
-def role_required(role: str):
+def roles_required(roles: list):
   def decorator(func):
     @wraps(func)
     async def wrapper(*args, user=Depends(get_current_user), **kwargs):
-      if user.get_account().get_role() != role:
+      if user.get_account().get_role() not in roles:
         raise HTTPException(status_code=403, detail="Forbidden")
 
       return await func(*args, user=user, **kwargs)

@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from ..models.field import FieldModel
 from ..database.database import stadium
 from ..internal.field import Field
-from ..utils.dependencies import get_current_user, role_required
+from ..utils.dependencies import get_current_user, roles_required
 
 router = APIRouter(
     prefix="/fields", tags=["fields"], responses={404: {"description": "Not found"}})
@@ -23,7 +23,7 @@ async def get_field(id: str):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-@role_required("admin")
+@roles_required(["admin"])
 async def create_field(body: FieldModel, user=Depends(get_current_user)):
   field_exist = stadium.get_field_by_name(body.name)
   if field_exist is not None:
@@ -38,7 +38,7 @@ async def create_field(body: FieldModel, user=Depends(get_current_user)):
 
 
 @router.patch("/{id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)):
   updated_news = stadium.update_field(id, body.dict())
 
@@ -50,7 +50,7 @@ async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)
 
 
 @router.delete("/{id}")
-@role_required("admin")
+@roles_required(["admin"])
 async def delete_field(id: str, user=Depends(get_current_user)):
   deleted_field = stadium.delete_field(id)
   if deleted_field is None:
