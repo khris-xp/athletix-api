@@ -6,3 +6,7 @@ class BookingModel(BaseModel):
   slot: dict
   equipments: list[dict]
   payment_method: str
+
+
+class ApproveBookingModel(BaseModel):
+  booking_id: str
