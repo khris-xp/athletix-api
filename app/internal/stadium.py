@@ -39,6 +39,9 @@ class Stadium(Search):
   def get_equipment_by_name(self, name: str) -> dict | None:
     return next((equipment for equipment in self.__equipments_collection if equipment.get_name() == name), None)
 
+  def get_equipments_by_category(self, category: str) -> list[dict] :
+    return [equipment for equipment in self.__equipments_collection if equipment.get_category() == category]
+  
   def update_equipment(self, id: str, update_equipment: dict) -> dict | None:
     return next((equipment for equipment in self.__equipments_collection if equipment.get_id() == id and all(hasattr(equipment, f"set_{key}") and getattr(equipment, f"set_{key}")(value) or True for key, value in update_equipment.items())), None)
 
