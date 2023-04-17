@@ -92,3 +92,6 @@ class Stadium(Search):
         filtered_field.set_booking_slots(field.get_booking_slots_by_date(date))
         filtered_fields.append(filtered_field)
     return filtered_fields
+
+  def search_slots_by_field_id_and_date(self, field_id: str, date: str) -> list[dict]:
+    return next((field.get_booking_slots_by_date(date) for field in self.__fields_collection if field.get_id() == field_id), [])

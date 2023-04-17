@@ -16,9 +16,10 @@ async def pay_promptpay(payment: PromptpayPaymentModel, user=Depends(get_current
         status_code=status.HTTP_400_BAD_REQUEST, detail="Booking not found")
 
   booking_exist.get_payment().set_slip_image(payment.slip_image)
-  booking_exist.get_payment().set_is_payed(True)
+  
+  booking_exist.get_payment().set_is_payed(True) 
 
-  return {"message": "Pay successfully"}
+  return {"message": "Create payment successfully"}
 
 
 @router.post("/pay/cash")
@@ -35,4 +36,4 @@ async def pay_cash(payment: CashPaymentModel, user=Depends(get_current_user)):
 
   booking_exist.get_payment().set_is_payed(True)
 
-  return {"message": "Pay successfully"}
+  return {"message": "Create payment successfully"}
