@@ -10,3 +10,4 @@ class BookingModel(BaseModel):
 
 class ApproveBookingModel(BaseModel):
   booking_id: str
+  

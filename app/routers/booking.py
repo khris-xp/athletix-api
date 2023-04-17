@@ -94,3 +94,4 @@ async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_us
   booking_exist.set_status("success")
 
   return {"message": "Approve successfully"}
+
