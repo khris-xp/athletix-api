@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import auth, booking, equipments, payments, users, fields, news, search
+from .routers import auth, booking, equipments, payments, users, fields, news, search, upload
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ app.include_router(payments.router)
 app.include_router(fields.router)
 app.include_router(news.router)
 app.include_router(search.router)
-
+app.include_router(upload.router)
 
 @app.get("/")
 async def read_root():
