@@ -3,7 +3,7 @@ import uuid
 
 
 class News:
-  def __init__(self, title: str, content: str, image_url: str, draft: bool) -> None:
+  def __init__(self, title: str, content: str, draft: bool, image_url:str) -> None:
     self.__id = str(uuid.uuid4())
     self.__title = title
     self.__content = content

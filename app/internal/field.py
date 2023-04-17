@@ -3,13 +3,14 @@ import uuid
 
 
 class Field:
-  def __init__(self, name: str, description: str, price_by_slot: float, category: str, type: str) -> None:
+  def __init__(self, name: str, description: str, price_by_slot: float, category: str, type: str, image: str) -> None:
     self.__id = str(uuid.uuid4())
     self.__name = name
     self.__description = description
     self.__price_by_slot = price_by_slot
     self.__category = category
     self.__type = type
+    self.__image = image
     self.__booking_slots = []
 
   def get_id(self) -> str:
@@ -35,6 +36,9 @@ class Field:
 
   def get_booking_slots_by_date(self, date: datetime) -> list[dict]:
     return [booking_slots for booking_slots in self.__booking_slots if booking_slots.get_date() == date]
+  
+  def get_image(self) -> str:
+    return self.__image
 
   def set_name(self, name: str) -> None:
     self.__name = name
@@ -53,6 +57,9 @@ class Field:
 
   def set_booking_slots(self, booking_slots: list) -> None:
     self.__booking_slots = booking_slots
+
+  def set_image(self, image: str) -> None:
+    self.__image = image
 
   def add_slot(self, slot: dict) -> dict:
     return self.__booking_slots.append(slot) or slot
