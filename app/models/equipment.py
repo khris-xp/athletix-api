@@ -6,3 +6,6 @@ class EquipmentModel(BaseModel):
   price_per_unit: float
   quantity: int
   category: str
+
+class SearchEquipmentModel(BaseModel):
+  category: str

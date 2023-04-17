@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from ..database.database import stadium
-from ..models.equipment import EquipmentModel
+from ..models.equipment import EquipmentModel, SearchEquipmentModel
 from ..internal.football import FootBall
 from ..internal.shuttlecock import ShuttleCock
 from ..internal.basketball import BasketBall
@@ -26,6 +26,9 @@ async def get_equipment(equipment_id: str):
 
   return equipment
 
+@router.get("/search/category")
+async def get_equipment_by_category(body: SearchEquipmentModel):
+  return stadium.get_equipments_by_category(body.category)
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
 @roles_required(["admin"])
