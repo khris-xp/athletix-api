@@ -7,3 +7,4 @@ class FieldModel(BaseModel):
   price_by_slot: float
   category: str
   type: str
+  image: str
