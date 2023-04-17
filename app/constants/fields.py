@@ -26,6 +26,7 @@ field1_slots3 = SlotDate(
 field1_slots3.set_is_booked(True)
 
 football1_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Football Field 1",
     description="A standard football field with grass surface.",
     price_by_slot=500,
@@ -38,6 +39,7 @@ football1_field.add_slot(field1_slots2)
 football1_field.add_slot(field1_slots3)
 
 football2_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Football Field 2",
     description="A standard football field with grass surface.",
     price_by_slot=500,
@@ -46,6 +48,7 @@ football2_field = Field(
 )
 
 football3_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Football Field 3",
     description="A standard football field with grass surface.",
     price_by_slot=300,
@@ -54,6 +57,7 @@ football3_field = Field(
 )
 
 basketball1_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Basketball Field 1",
     description="A standard basketball field with concrete surface.",
     price_by_slot=500,
@@ -62,6 +66,7 @@ basketball1_field = Field(
 )
 
 basketball2_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Basketball Field 2",
     description="A standard basketball field with concrete surface.",
     price_by_slot=500,
@@ -70,6 +75,7 @@ basketball2_field = Field(
 )
 
 basketball3_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Basketball Field 3",
     description="A standard basketball field with concrete surface.",
     price_by_slot=300,
@@ -78,6 +84,7 @@ basketball3_field = Field(
 )
 
 badminton1_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Badminton Field 1",
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
@@ -86,6 +93,7 @@ badminton1_field = Field(
 )
 
 badminton2_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Badminton Field 2",
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
@@ -94,6 +102,7 @@ badminton2_field = Field(
 )
 
 badminton3_field = Field(
+    image="https://editorial.uefa.com/resources/025c-0f8e775cc072-f99f8b3389ab-1000/the_new_tottenham_hotspur_stadium_has_an_unusual_flexible_playing_surface.jpeg",
     name="Badminton Field 3",
     description="A standard Badminton field with concrete surface.",
     price_by_slot=500,
