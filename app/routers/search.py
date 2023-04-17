@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from ..database.database import stadium
-from ..models.search import CheckSlot
 router = APIRouter(
     prefix="/search", tags=["search"], responses={404: {"description": "Not found"}})
 
