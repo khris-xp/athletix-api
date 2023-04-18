@@ -15,11 +15,6 @@ async def upload_slip(file: UploadFile = File(...)):
     os.makedirs("images")
   name = str(uuid.uuid4())
   with open(f"images/{name}.png", "wb") as buffer:
-<<<<<<< HEAD
         shutil.copyfileobj(file.file, buffer)
   return {"filename": f"images/{name}.png"}
   
-=======
-    shutil.copyfileobj(file.file, buffer)
-  return {"filename": f'images/{name}.png'}
->>>>>>> 76ca78c6a140f733a9ad1d3fe22c6941374526ec
