@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import auth, booking, equipments, payments, users, fields, news, search, upload
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
-
+app.mount("/images", StaticFiles(directory="images"), name="images")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
