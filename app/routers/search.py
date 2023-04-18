@@ -6,9 +6,9 @@ router = APIRouter(
 
 @router.get("/")
 async def search(category: str, date: str):
-  return stadium.search_fields_by_category_and_date(category, date)
+  return [field.to_dict() for field in stadium.search_fields_by_category_and_date(category, date)]
+
 
 @router.get("/slot")
 async def searchSlot(field_id: str, date: str):
-  return stadium.search_slots_by_field_id_and_date(field_id, date)
-
+  return [slot.to_dict() for slot in stadium.search_slots_by_field_id_and_date(field_id, date)]

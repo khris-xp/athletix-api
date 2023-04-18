@@ -11,7 +11,7 @@ router = APIRouter(
 
 @router.get("/")
 async def get_news():
-  return stadium.get_news()
+  return [news.to_dict() for news in stadium.get_news()]
 
 
 @router.get("/{id}")
@@ -22,7 +22,7 @@ async def get_news_by_id(id: str):
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="News not found")
 
-  return news
+  return news.to_dict()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -37,7 +37,7 @@ async def create_news(body: NewsModel,  user=Depends(get_current_user)):
   news = News(**body.dict())
 
   new_news = stadium.add_news(news)
-  return new_news
+  return new_news.to_dict()
 
 
 @router.patch("/{id}")
@@ -49,7 +49,7 @@ async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="News not found")
 
-  return updated_news
+  return updated_news.to_dict()
 
 
 @router.delete("/{id}")

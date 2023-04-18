@@ -60,22 +60,23 @@ async def create_booking(body: BookingModel, user=Depends(get_current_user)):
         status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid")
 
   new_booking = Booking(slot=slot, equipments=body.equipments,
-                        customer_id=user.get_id(), field_id=body.field_id, payment=new_payment)
+                        customer={"id": user.get_id(), "fullname": user.get_fullname()}, field={
+                            "id": field_exist.get_id(), "name": field_exist.get_name()}, payment=new_payment)
 
   booking_history.add_bookings(new_booking)
 
-  return new_booking
+  return new_booking.to_dict()
 
 
 @router.get("/")
 @roles_required(["admin"])
 async def get_booking(user=Depends(get_current_user)):
-  return booking_history.get_bookings()
+  return [booking.to_dict() for booking in booking_history.get_bookings()]
 
 
 @router.get("/history")
 async def get_history(user=Depends(get_current_user)):
-  return booking_history.get_booking_by_user(user.get_id())
+  return [booking.to_dict() for booking in booking_history.get_bookings_by_user(user.get_id())]
 
 
 @router.post("/approve")
@@ -94,4 +95,3 @@ async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_us
   booking_exist.set_status("success")
 
   return {"message": "Approve successfully"}
-

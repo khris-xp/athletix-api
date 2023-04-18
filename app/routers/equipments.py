@@ -13,7 +13,7 @@ router = APIRouter(prefix="/equipments",
 
 @router.get("/")
 async def get_equipments():
-  return stadium.get_equipments()
+  return [equipment.to_dict() for equipment in stadium.get_equipments()]
 
 
 @router.get("/{equipment_id}")
@@ -24,11 +24,11 @@ async def get_equipment(equipment_id: str):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                         detail="Equipment not found")
 
-  return equipment
+  return equipment.to_dict()
 
 @router.get("/search/category")
 async def get_equipment_by_category(body: SearchEquipmentModel):
-  return stadium.get_equipments_by_category(body.category)
+  return [equipment.to_dict() for equipment in stadium.get_equipments_by_category(body.category)]
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
 @roles_required(["admin"])
@@ -54,7 +54,7 @@ async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(
 
   new_equipment = stadium.add_equipment(equipment)
 
-  return new_equipment
+  return new_equipment.to_dict()
 
 
 @router.patch("/{equipment_id}")
@@ -66,7 +66,7 @@ async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=De
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                         detail="Equipment not found")
 
-  return update_equipment
+  return update_equipment.to_dict()
 
 
 @router.delete("/{equipment_id}")

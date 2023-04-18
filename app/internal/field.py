@@ -13,6 +13,18 @@ class Field:
     self.__image = image
     self.__booking_slots = []
 
+  def to_dict(self) -> dict:
+    return {
+        "id": self.get_id(),
+        "name": self.get_name(),
+        "description": self.get_description(),
+        "price_by_slot": self.get_price_by_slot(),
+        "category": self.get_category(),
+        "type": self.get_type(),
+        "image": self.get_image(),
+        "booking_slots": [slot.to_dict() for slot in self.get_booking_slots()],
+    }
+
   def get_id(self) -> str:
     return self.__id
 
@@ -36,7 +48,7 @@ class Field:
 
   def get_booking_slots_by_date(self, date: datetime) -> list[dict]:
     return [booking_slots for booking_slots in self.__booking_slots if booking_slots.get_date() == date]
-  
+
   def get_image(self) -> str:
     return self.__image
 
