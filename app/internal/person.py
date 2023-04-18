@@ -14,6 +14,19 @@ class Person:
     self.__emergency_contact_phone_number = emergency_contact_phone_number
     self.__account = account
 
+  def to_dict(self) -> dict:
+    return {
+        "id": self.get_id(),
+        "fullname": self.get_fullname(),
+        "email": self.get_email(),
+        "phone_number": self.get_phone_number(),
+        "address": self.get_address(),
+        "birth_date": self.get_birth_date(),
+        "emergency_contact_fullname": self.get_emergency_contact_fullname(),
+        "emergency_contact_phone_number": self.get_emergency_contact_phone_number(),
+        "account": self.get_account().to_dict()
+    }
+
   def get_id(self) -> str:
     return self.__id
 

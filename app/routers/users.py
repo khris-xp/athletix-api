@@ -9,7 +9,7 @@ router = APIRouter(
 
 @router.get("/profile")
 async def get_profile(user=Depends(get_current_user)):
-  return user
+  return user.to_dict()
 
 
 @router.post("/change-password")

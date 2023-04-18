@@ -9,6 +9,11 @@ class Payment:
     self.__is_payed = is_payed
     self.__created_at = datetime.now()
 
+  def to_dict(self) -> dict:
+    return {
+        key.replace("_Payment__", ""): value for key, value in self.__dict__.items()
+    }
+
   def get_id(self) -> str:
     return self.__id
 
