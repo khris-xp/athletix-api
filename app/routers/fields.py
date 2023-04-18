@@ -10,7 +10,7 @@ router = APIRouter(
 
 @router.get("/")
 async def get_fields():
-  return stadium.get_fields()
+  return [field.to_dict() for field in stadium.get_fields()]
 
 
 @router.get("/{id}")
@@ -19,7 +19,7 @@ async def get_field(id: str):
   if field is None:
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Field not found")
-  return field
+  return field.to_dict()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -34,7 +34,7 @@ async def create_field(body: FieldModel, user=Depends(get_current_user)):
   
   new_field = stadium.add_field(field)
 
-  return new_field
+  return new_field.to_dict()
 
 
 @router.patch("/{id}")
@@ -46,7 +46,7 @@ async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Field not found")
 
-  return updated_news
+  return updated_news.to_dict()
 
 
 @router.delete("/{id}")

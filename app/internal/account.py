@@ -3,6 +3,12 @@ class Account:
     self.__password = password
     self.__role = role
 
+  def to_dict(self) -> dict:
+    return {
+        key.replace("_Account__", ""): value
+        for key, value in self.__dict__.items()
+    }
+
   def get_password(self) -> str:
     return self.__password
 
