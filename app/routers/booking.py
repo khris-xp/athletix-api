@@ -59,7 +59,16 @@ async def create_booking(body: BookingModel, user=Depends(get_current_user)):
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid")
 
-  new_booking = Booking(slot=slot, equipments=body.equipments,
+  equipments = [
+      {
+          "id": equipment['id'],
+          "quantity": equipment['quantity'],
+          "name": stadium.get_equipment_by_id(equipment['id']).get_name(),
+      }
+      for equipment in body.equipments
+  ]
+
+  new_booking = Booking(slot=slot, equipments=equipments,
                         customer={"id": user.get_id(), "fullname": user.get_fullname()}, field={
                             "id": field_exist.get_id(), "name": field_exist.get_name()}, payment=new_payment)
 
