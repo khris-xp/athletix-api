@@ -6,7 +6,7 @@ from ..constants.fields import football1_field, football2_field, football3_field
 from ..constants.equipments import football_equipment, basketball_equipment, shuttlecock_equipment, vest_equipment
 
 stadium = Stadium()
-booking_history = BookingHistory()
+# booking_history = BookingHistory()
 
 stadium.add_user(admin1)
 stadium.add_user(admin2)

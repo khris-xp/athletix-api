@@ -1,10 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
-from ..utils.dependencies import get_current_user
-from ..models.payment import PromptpayPaymentModel, CashPaymentModel
-from ..database.database import booking_history
+from fastapi import APIRouter, UploadFile, File
 import shutil
 import os
 import uuid
+
 router = APIRouter(prefix="/upload", tags=["upload"], responses={
                    404: {"description": "Not found"}})
 

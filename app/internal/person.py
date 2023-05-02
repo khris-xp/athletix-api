@@ -74,3 +74,6 @@ class Person:
 
   def set_emergency_contact_phone_number(self, emergency_contact_phone_number: str) -> None:
     self.__emergency_contact_phone_number = emergency_contact_phone_number
+
+  def set_account(self, account) -> None:
+    self.__account = account

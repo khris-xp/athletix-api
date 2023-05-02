@@ -40,7 +40,7 @@ async def create_news(body: NewsModel,  user=Depends(get_current_user)):
   return new_news.to_dict()
 
 
-@router.patch("/{id}")
+@router.put("/{id}")
 @roles_required(["admin"])
 async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
   updated_news = stadium.update_news(id, body.dict())

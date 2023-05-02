@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from ..utils.dependencies import get_current_user
 from ..models.payment import PromptpayPaymentModel, CashPaymentModel
-from ..database.database import booking_history
+from ..database.database import stadium
 
 router = APIRouter(prefix="/payments", tags=["payments"], responses={
                    404: {"description": "Not found"}})
@@ -9,7 +9,7 @@ router = APIRouter(prefix="/payments", tags=["payments"], responses={
 
 @router.post("/pay/promptpay")
 async def pay_promptpay(payment: PromptpayPaymentModel, user=Depends(get_current_user)):
-  booking_exist = booking_history.get_booking_by_id(payment.booking_id)
+  booking_exist = stadium.get_booking_by_id(payment.booking_id)
 
   if booking_exist is None:
     raise HTTPException(
@@ -24,7 +24,7 @@ async def pay_promptpay(payment: PromptpayPaymentModel, user=Depends(get_current
 
 @router.post("/pay/cash")
 async def pay_cash(payment: CashPaymentModel, user=Depends(get_current_user)):
-  booking_exist = booking_history.get_booking_by_id(payment.booking_id)
+  booking_exist = stadium.get_booking_by_id(payment.booking_id)
 
   if booking_exist is None:
     raise HTTPException(
