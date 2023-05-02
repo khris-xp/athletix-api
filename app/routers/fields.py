@@ -31,7 +31,7 @@ async def create_field(body: FieldModel, user=Depends(get_current_user)):
                         detail="Field name already exists")
 
   field = Field(**body.dict())
-  
+
   new_field = stadium.add_field(field)
 
   return new_field.to_dict()
@@ -52,6 +52,12 @@ async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)
 @router.delete("/{id}")
 @roles_required(["admin"])
 async def delete_field(id: str, user=Depends(get_current_user)):
+  hasBookings = stadium.get_bookings_by_field(id)
+
+  if len(hasBookings) > 0:
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Field has bookings")
+
   deleted_field = stadium.delete_field(id)
   if deleted_field is None:
     raise HTTPException(
