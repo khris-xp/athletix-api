@@ -26,9 +26,10 @@ async def get_equipment(equipment_id: str):
 
   return equipment.to_dict()
 
-@router.get("/search/category")
-async def get_equipment_by_category(body: SearchEquipmentModel):
-  return [equipment.to_dict() for equipment in stadium.get_equipments_by_category(body.category)]
+@router.get("/search/")
+async def get_equipment_by_category(category: str):
+  
+  return [equipment.to_dict() for equipment in stadium.get_equipments_by_category(category)]
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
 @roles_required(["admin"])
@@ -57,7 +58,7 @@ async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(
   return new_equipment.to_dict()
 
 
-@router.patch("/{equipment_id}")
+@router.put("/{equipment_id}")
 @roles_required(["admin"])
 async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=Depends(get_current_user)):
   update_equipment = stadium.update_equipment(equipment_id, equipment.dict())

@@ -37,7 +37,7 @@ async def create_field(body: FieldModel, user=Depends(get_current_user)):
   return new_field.to_dict()
 
 
-@router.patch("/{id}")
+@router.put("/{id}")
 @roles_required(["admin"])
 async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)):
   updated_news = stadium.update_field(id, body.dict())

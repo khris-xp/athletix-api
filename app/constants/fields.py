@@ -2,9 +2,9 @@ from ..internal.field import Field
 from ..internal.slot_date import SlotDate
 
 field1_slots1 = SlotDate(
-    date="2023-04-20T00:00:00.000Z",
-    start_time="2023-04-20T09:00:00.000Z",
-    end_time="2023-04-20T10:00:00.000Z"
+    date="2023-05-02T00:00:00.000Z",
+    start_time="2023-05-02T09:00:00.000Z",
+    end_time="2023-05-02T10:00:00.000Z"
 )
 
 field1_slots1.set_is_booked(True)

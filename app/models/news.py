@@ -5,4 +5,3 @@ class NewsModel(BaseModel):
   title: str
   content: str
   image_url: str
-  draft: bool
