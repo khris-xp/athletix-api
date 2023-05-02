@@ -34,7 +34,6 @@ class Stadium(Search):
       if news.get_id() == id:
         news.set_title(update_news['title'])
         news.set_content(update_news['content'])
-        news.set_draft(update_news['draft'])
         news.set_image_url(update_news['image_url'])
         return news
     return None
