@@ -1,8 +1,7 @@
-from .search import Search
 from copy import copy
 
 
-class Stadium(Search):
+class Stadium:
   def __init__(self) -> None:
     self.__news_collection = []
     self.__equipments_collection = []
@@ -22,7 +21,7 @@ class Stadium(Search):
       if news.get_id() == id:
         return news
     return None
-  
+
   def get_news_by_title(self, title: str) -> dict | None:
     for news in self.__news_collection:
       if news.get_title() == title:
@@ -34,7 +33,6 @@ class Stadium(Search):
       if news.get_id() == id:
         news.set_title(update_news['title'])
         news.set_content(update_news['content'])
-        news.set_draft(update_news['draft'])
         news.set_image_url(update_news['image_url'])
         return news
     return None
@@ -160,21 +158,12 @@ class Stadium(Search):
         return "Delete field successfully"
     return None
 
-  def search_fields_by_category_and_date(self, category: str, date: str) -> list[dict]:
-    filtered_fields = []
-    for field in self.__fields_collection:
-      if field.get_category().lower() == category.lower():
-        filtered_field = copy(field)
-        filtered_field.set_booking_slots(field.get_booking_slots_by_date(date))
-        filtered_fields.append(filtered_field)
-    return filtered_fields
-
   def search_slots_by_field_id_and_date(self, field_id: str, date: str) -> list[dict]:
     for field in self.__fields_collection:
       if field.get_id() == field_id:
         return field.get_booking_slots_by_date(date)
     return []
-  
+
   def get_bookings(self):
     return [booking for booking in self.__bookings_collection]
 
