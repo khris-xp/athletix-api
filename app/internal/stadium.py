@@ -190,3 +190,10 @@ class Stadium(Search):
   def add_booking(self, booking: dict) -> dict:
     self.__bookings_collection.append(booking)
     return booking
+
+  def delete_booking(self, booking_id: str) -> str | None:
+    for index, booking in enumerate(self.__bookings_collection):
+      if booking.get_id() == booking_id:
+        self.__bookings_collection.pop(index)
+        return "Delete booking successfully"
+    return None
