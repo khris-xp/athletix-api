@@ -176,6 +176,12 @@ class Stadium:
   def get_bookings_by_user(self, user_id: str) -> list[dict]:
     return [booking for booking in self.__bookings_collection if booking.get_customer()['id'] == user_id]
 
+  def get_bookings_by_field(self, field_id: str) -> list[dict]:
+    return [booking for booking in self.__bookings_collection if booking.get_field()['id'] == field_id]
+
+  def get_bookings_by_equipment(self, equipment_id: str) -> list[dict]:
+    return [booking for booking in self.__bookings_collection if equipment_id in [equipment['id'] for equipment in booking.get_equipments()]]
+
   def add_booking(self, booking: dict) -> dict:
     self.__bookings_collection.append(booking)
     return booking

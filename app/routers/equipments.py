@@ -26,10 +26,12 @@ async def get_equipment(equipment_id: str):
 
   return equipment.to_dict()
 
+
 @router.get("/search/")
 async def get_equipment_by_category(category: str):
-  
+
   return [equipment.to_dict() for equipment in stadium.get_equipments_by_category(category)]
+
 
 @router.post("/{equipment_type}", status_code=status.HTTP_201_CREATED)
 @roles_required(["admin"])
@@ -73,6 +75,12 @@ async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=De
 @router.delete("/{equipment_id}")
 @roles_required(["admin"])
 async def delete_equipment(equipment_id: str, user=Depends(get_current_user)):
+  hasEquipmentBooked = stadium.get_bookings_by_equipment(equipment_id)
+
+  if len(hasEquipmentBooked) > 0:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Equipment has been booked")
+
   delete_equipment = stadium.delete_equipment(equipment_id)
 
   if delete_equipment is None:
