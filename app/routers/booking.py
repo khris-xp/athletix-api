@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from ..utils.dependencies import get_current_user, roles_required
 from ..internal.booking import Booking
 from ..internal.slot_date import SlotDate
-from ..models.booking import BookingModel, ApproveBookingModel
+from ..models.booking import BookingModel, ApproveBookingModel, CancelBookingModel
 from ..database.database import stadium
 from ..internal.cash_payment import CashPayment
 from ..internal.promptpay_payment import PromptPayPayment
@@ -103,3 +103,16 @@ async def approve_booking(body: ApproveBookingModel, user=Depends(get_current_us
   booking_exist.set_status("success")
 
   return {"message": "Approve successfully"}
+
+
+@router.delete("/{booking_id}")
+async def delete_booking(booking_id: str, user=Depends(get_current_user)):
+  booking_exist = stadium.get_booking_by_id(booking_id)
+
+  if booking_exist is None:
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Booking not found")
+
+  stadium.delete_booking(booking_id)
+
+  return {"message": "Delete successfully"}

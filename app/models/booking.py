@@ -11,3 +11,5 @@ class BookingModel(BaseModel):
 class ApproveBookingModel(BaseModel):
   booking_id: str
   
+class CancelBookingModel(BaseModel):
+  booking_id: str
