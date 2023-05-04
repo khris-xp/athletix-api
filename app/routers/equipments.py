@@ -63,6 +63,12 @@ async def add_equipment(equipment_type: str, body: EquipmentModel, user=Depends(
 @router.put("/{equipment_id}")
 @roles_required(["admin"])
 async def update_equipment(equipment_id: str, equipment: EquipmentModel, user=Depends(get_current_user)):
+  equipment_exist = stadium.get_equipment_by_name(equipment.name)
+
+  if equipment_exist is not None and equipment_exist.get_id() != equipment_id:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Equipment already exists")
+
   update_equipment = stadium.update_equipment(equipment_id, equipment.dict())
 
   if update_equipment is None:

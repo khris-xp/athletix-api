@@ -43,6 +43,12 @@ async def create_news(body: NewsModel,  user=Depends(get_current_user)):
 @router.put("/{id}")
 @roles_required(["admin"])
 async def update_news(id: str, body: NewsModel, user=Depends(get_current_user)):
+  news_exist = stadium.get_news_by_title(body.title)
+
+  if news_exist is not None and news_exist.get_id() != id:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="News already existed")
+
   updated_news = stadium.update_news(id, body.dict())
 
   if updated_news is None:
