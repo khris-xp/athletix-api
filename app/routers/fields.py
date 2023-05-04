@@ -40,6 +40,12 @@ async def create_field(body: FieldModel, user=Depends(get_current_user)):
 @router.put("/{id}")
 @roles_required(["admin"])
 async def update_field(id: str, body: FieldModel, user=Depends(get_current_user)):
+  field_exist = stadium.get_field_by_name(body.name)
+
+  if field_exist is not None and field_exist.get_id() != id:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Field name already exists")
+
   updated_news = stadium.update_field(id, body.dict())
 
   if updated_news is None:
