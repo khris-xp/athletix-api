@@ -34,6 +34,7 @@ class Stadium:
         news.set_title(update_news['title'])
         news.set_content(update_news['content'])
         news.set_image_url(update_news['image_url'])
+        news.set_updated_at()
         return news
     return None
 
